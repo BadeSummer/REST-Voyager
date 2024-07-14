@@ -1,6 +1,6 @@
-from connect import connect_to_vas, send_request, receive_response, disconnect_from_vas, find_event
+from connect import connect_to_vas, send_request, receive_response, find_event
 import uuid
-
+import time
 uid = str(uuid.uuid4())
 
 sock = connect_to_vas()
@@ -15,8 +15,11 @@ request = {
 
 send_request(sock, request)
 
+time.sleep(1)
 response_lines = receive_response(sock)
-
-response_data = find_event(response_lines, "RemoteGetCCDTemperature")
+print(response_lines)
+response_data = find_event(response_lines, "RemoteActionResult")
 
 print(f"CCD Temperature: {response_data.get('ParamRet').get('CCDTemp')}")
+
+# disconnect_from_vas(sock)

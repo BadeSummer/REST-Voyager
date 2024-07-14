@@ -1,6 +1,6 @@
 import socket
 import json
-
+import time
 
 def set_up_connection():
     with open('config.json', 'r') as json_file:
@@ -20,6 +20,9 @@ def connect_to_vas():
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # 连接到服务器和端口
         sock.connect((server_address, port))
+
+        # sleep to wait connetion to be established
+        time.sleep(1)
         return sock
     
     except Exception as e:
@@ -61,15 +64,15 @@ def receive_response(sock):
         return None
     
 
-def disconnect_from_vas(sock):
-    close_request = {
-        'method': 'disconnect',
-        'id' : 1
-    }
-    send_request(sock, close_request)
-    close_respone = receive_response(sock)
-    close_lines = close_response.split('\r\n')
-    if close_respone['result'] == 0:
-        return "Close safety"
-    else:
-        return f"Error with close connect: {close_respone}"
+# def disconnect_from_vas(sock):
+#     close_request = {
+#         'method': 'disconnect',
+#         'id' : 1
+#     }
+#     send_request(sock, close_request)
+#     close_respone = receive_response(sock)
+#     close_lines = close_response.split('\r\n')
+#     if close_respone['result'] == 0:
+#         return "Close safety"
+#     else:
+#         return f"Error with close connect: {close_respone}"
