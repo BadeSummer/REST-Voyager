@@ -38,6 +38,7 @@ def send_request(sock, request):
     except Exception as e:
         print(f"Error sending request: {e}")
 
+
 def find_event(lines, event_name):
     for line in lines:
         if line.strip():  # 忽略空行
@@ -64,15 +65,15 @@ def receive_response(sock):
         return None
     
 
-# def disconnect_from_vas(sock):
-#     close_request = {
-#         'method': 'disconnect',
-#         'id' : 1
-#     }
-#     send_request(sock, close_request)
-#     close_respone = receive_response(sock)
-#     close_lines = close_response.split('\r\n')
-#     if close_respone['result'] == 0:
-#         return "Close safety"
-#     else:
-#         return f"Error with close connect: {close_respone}"
+def disconnect_to_vas(sock):
+    close_request = {
+        'method': 'disconnect',
+        'id' : 1
+    }
+    send_request(sock, close_request)
+    time.sleep(0.1)
+    close_respone_lines = receive_response(sock)
+    if close_respone_lines[-1].get('result') == 0:
+        return "Close safety"
+    else:
+        raise Exception(f"Close failed: {close_respone_lines}")
