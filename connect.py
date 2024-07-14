@@ -73,7 +73,21 @@ def disconnect_to_vas(sock):
     send_request(sock, close_request)
     time.sleep(0.1)
     close_respone_lines = receive_response(sock)
-    if close_respone_lines[-1].get('result') == 0:
+
+    close_respone = json.loads(close_respone_lines[-2])
+    if close_respone.get('result') == 0:
         return "Close safety"
     else:
         raise Exception(f"Close failed: {close_respone_lines}")
+    
+
+def vas_polling(sock):
+    polling_event = {
+        "Event":"Polling",
+        "Timestamp":1548806904.00159,
+        "Host":"DESKTOP-A201027",
+        "Inst":1
+        }
+    
+    send_request(sock, polling_event)
+    return

@@ -9,7 +9,8 @@ sock = connect_to_vas()
 set_dashboard_mode_request = {
     "method": "RemoteSetDashboardMode",
     "params": {
-        "UID": uid
+        "UID": uid,
+        "IsOn": "true"
         },
     "id": 2
 }
@@ -29,4 +30,4 @@ while (not control_data) and count < 3:
     else:
         count += 1
 
-disconnect_to_vas()
+disconnect_to_vas(sock)
