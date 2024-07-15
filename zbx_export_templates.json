@@ -1,0 +1,272 @@
+{
+    "zabbix_export": {
+        "version": "7.0",
+        "template_groups": [
+            {
+                "uuid": "a571c0d144b14fd4a87a9d9b2aa9fcd6",
+                "name": "Templates/Applications"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "2b995b9e855f404a82fcb00e000ac29f",
+                "template": "Voyager with REST-VAS by Zabbix agent 2 active",
+                "name": "Voyager with REST-VAS by Zabbix agent 2 active",
+                "description": "Get metrics from REST-VAS python project deploy on host. Executed by User parameters of Zabbix agent 2 active. \n\nREST-VAS: https://github.com/BadeSummer/REST-Voyager",
+                "groups": [
+                    {
+                        "name": "Templates/Applications"
+                    }
+                ],
+                "items": [
+                    {
+                        "uuid": "e34296c53208414e8e50c3c7fd0588a1",
+                        "name": "VAS Running or not",
+                        "type": "ZABBIX_ACTIVE",
+                        "key": "net.tcp.port[{$VOYAGER.AS.HOST},{$VOYAGER.AS.PORT}]",
+                        "valuemap": {
+                            "name": "UP and DOWN"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "422620edd5af402382e1aad4ddcc04ba",
+                        "name": "Get Control Data",
+                        "type": "ZABBIX_ACTIVE",
+                        "key": "restvas.run[GetControlData]",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "preprocessing": [
+                            {
+                                "type": "MATCHES_REGEX",
+                                "parameters": [
+                                    "{*}"
+                                ],
+                                "error_handler": "CUSTOM_ERROR",
+                                "error_handler_params": "Unknow Error: can not get control data."
+                            }
+                        ],
+                        "timeout": "5s",
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    }
+                ],
+                "tags": [
+                    {
+                        "tag": "class",
+                        "value": "software"
+                    },
+                    {
+                        "tag": "target",
+                        "value": "Voyager"
+                    }
+                ],
+                "macros": [
+                    {
+                        "macro": "{$REST.VAS.DIR}"
+                    },
+                    {
+                        "macro": "{$VOYAGER.AS.HOST}",
+                        "value": "localhost"
+                    },
+                    {
+                        "macro": "{$VOYAGER.AS.PORT}",
+                        "value": "5950"
+                    },
+                    {
+                        "macro": "{$VOYAGER.AS.SERVICE_NAME}"
+                    }
+                ],
+                "valuemaps": [
+                    {
+                        "uuid": "84e184f35ad8412d8f79cc8312055eb4",
+                        "name": "CCDSTAT",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "INIT"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "UNDEF"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "NO COOLER"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "OFF"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "COOLING"
+                            },
+                            {
+                                "value": "5",
+                                "newvalue": "COOLED"
+                            },
+                            {
+                                "value": "6",
+                                "newvalue": "TIMEOUT COOLING"
+                            },
+                            {
+                                "value": "7",
+                                "newvalue": "WARMUP RUNNING"
+                            },
+                            {
+                                "value": "8",
+                                "newvalue": "WARMUP END"
+                            },
+                            {
+                                "value": "9",
+                                "newvalue": "ERROR"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "04d108feebe949949dd45d7fc912351f",
+                        "name": "DITHSTAT",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "STOPPED"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "RUNNING"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "WAITING _SETTLE"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "TIMEOUT_SETTLE"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "77d330b340854f338740ed7858b313a0",
+                        "name": "DOMESHUTTER",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "shutterOpen"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "shutterClosed"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "shutterOpening"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "shutterClosing"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "shutterError"
+                            },
+                            {
+                                "value": "5",
+                                "newvalue": "ERROR"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "3aa4b232e49043f9ae290da3a526ae45",
+                        "name": "GUIDESTAT",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "STOPPED"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "WAITING_SETTLE"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "RUNNING"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "TIMEOUT_SETTLE"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "5724dc83ac674d9791e65aaf7408873b",
+                        "name": "Special Values",
+                        "mappings": [
+                            {
+                                "value": "-123456789",
+                                "newvalue": "OFF VALUE"
+                            },
+                            {
+                                "value": "+123456789",
+                                "newvalue": "ERROR VALUE"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "4fd4e9e973c54ca9b9aa2e78afbe3032",
+                        "name": "UP and DOWN",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "DOWN"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "UP"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "7169e1c85398425b86afe67ea0f00e97",
+                        "name": "VOYSTAT",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "STOPPED"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "IDLE"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "RUN"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "ERRORE"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "UNDEFINED"
+                            },
+                            {
+                                "value": "5",
+                                "newvalue": "WARNING"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

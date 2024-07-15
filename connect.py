@@ -2,8 +2,13 @@ import socket
 import json
 import time
 
+import os
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def set_up_connection():
-    with open('config.json', 'r') as json_file:
+    fn = os.path.join(SCRIPT_DIR, 'config.json')
+    
+    with open(fn, 'r') as json_file:
         config = json.load(json_file)
     json_file.close()
     return config

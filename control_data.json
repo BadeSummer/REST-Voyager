@@ -1,10 +1,10 @@
 {
     "Event": "ControlData",
-    "Timestamp": 1720999012.22258,
+    "Timestamp": 1721091128.43244,
     "Host": "DESKTOP-A201027",
     "Inst": 1,
-    "TI": "2024-07-14 23:16:52",
-    "TIUTC": "2024-07-14 15:16:52",
+    "TI": "2024-07-16 00:52:08",
+    "TIUTC": "2024-07-15 16:52:08",
     "VOYSTAT": 0,
     "SETUPCONN": false,
     "CCDCONN": false,

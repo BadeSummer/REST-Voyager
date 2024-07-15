@@ -1,0 +1,1595 @@
+{
+    "zabbix_export": {
+        "version": "7.0",
+        "template_groups": [
+            {
+                "uuid": "a571c0d144b14fd4a87a9d9b2aa9fcd6",
+                "name": "Templates/Applications"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "2b995b9e855f404a82fcb00e000ac29f",
+                "template": "Voyager with REST-VAS by Zabbix agent 2 active",
+                "name": "Voyager with REST-VAS by Zabbix agent 2 active",
+                "description": "Get metrics from REST-VAS python project deploy on host. Executed by User parameters of Zabbix agent 2 active. \n\nREST-VAS: https://github.com/BadeSummer/REST-Voyager",
+                "groups": [
+                    {
+                        "name": "Templates/Applications"
+                    }
+                ],
+                "items": [
+                    {
+                        "uuid": "e34296c53208414e8e50c3c7fd0588a1",
+                        "name": "VAS Running or not",
+                        "type": "ZABBIX_ACTIVE",
+                        "key": "net.tcp.port[{$VOYAGER.AS.HOST},{$VOYAGER.AS.PORT}]",
+                        "valuemap": {
+                            "name": "UP and DOWN"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "422620edd5af402382e1aad4ddcc04ba",
+                        "name": "Get Control Data",
+                        "type": "ZABBIX_ACTIVE",
+                        "key": "restvas.run[GetControlData]",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "preprocessing": [
+                            {
+                                "type": "MATCHES_REGEX",
+                                "parameters": [
+                                    "{*}"
+                                ],
+                                "error_handler": "CUSTOM_ERROR",
+                                "error_handler_params": "Unknow Error: can not get control data."
+                            }
+                        ],
+                        "timeout": "5s",
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "3a2f8e0fc2864b859090e440bbf42e83",
+                        "name": "Control Data - TI",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.ti",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Actual Timing in Voyager format AAAA-MM-GG HH:MM:SS",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.TI"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "30d9f36567004afe8aff89c7b0082c3d",
+                        "name": "Control Data - TIUTC",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.tiutc",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "UTC Timing in Voyager format AAAA-MM-GG HH:MM:SS",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.TIUTC"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "9b72bd83fc0a470daec78ec38377a64b",
+                        "name": "Control Data - VOYSTAT",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.voystat",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "UNSIGNED",
+                        "description": "Actual Status of Voyager Application",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.VOYSTAT"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "612ab9a4a7d74deda2ced1007e9739aa",
+                        "name": "Control Data - SETUPCONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.setupconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if all setup controls in Voyager are connected with true or false",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.SETUPCONN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "78b7e290d83e483f8bc728696989d949",
+                        "name": "Control Data - CCDCONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.ccdconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if camera control is connected or not. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.CCDCONN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "b8d3a143dc67464bb3438bc00f515ee4",
+                        "name": "Control Data - CCDTEMP",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.ccdtemp",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Temperature of cooling in Camera",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.CCDTEMP"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "6e5f3a88ce0740c583e83b468f261c7a",
+                        "name": "Control Data - CCDPOW",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.ccdpow",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Percentage of power used by Peltier",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.CCDPOW"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "e0f37c509c484f8c854662c3cca853ea",
+                        "name": "Control Data - CCDSETP",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.ccdsetp",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Temperature Set Point asked to Cooler",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.CCDSETP"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "fdc443bdab3f48f0b2c0f109218956a6",
+                        "name": "Control Data - CCDCOOL",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.ccdcool",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "True if Peltier is switched on or False if is switched off or Peltier is not present",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.CCDCOOL"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "db4c72347f754729bb7f03edc574c120",
+                        "name": "Control Data - CCDSTAT",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.ccdstat",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "UNSIGNED",
+                        "description": "Status of cooling automa inside Voyager",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.CCDSTAT"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "e36ccfec48fd48e0abea263d5ee3e6b2",
+                        "name": "Control Data - MNTCONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if mount control is connected or not. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTCONN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "8e4bfdf5075e432abc232b053379222f",
+                        "name": "Control Data - MNTPARK",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntpark",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if mount is parked. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTPARK"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "4caae697bb8f46cfb29493d4da9f8ced",
+                        "name": "Control Data - MNTRA",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntra",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Actual RA of Mount JNow",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTRA"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "aa6be76132d3419a9866cb7b41d7f9b2",
+                        "name": "Control Data - MNTDEC",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntdec",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Actual DEC of Mount JNow",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTDEC"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "23f701e556864b668d1f464aa7d06b25",
+                        "name": "Control Data - MNTRAJ2000",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntraj2000",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Actual RA of Mount J2000",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTRAJ2000"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "306903a717514f3392e902be3effdef3",
+                        "name": "Control Data - MNTDECJ2000",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntdecj2000",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Actual DEC of Mount J2000",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTDECJ2000"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "bc3e6bc6728947c9ae89ab367477d48c",
+                        "name": "Control Data - MNTAZ",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntaz",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Actual Azimuth of Mount",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTAZ"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "12ebb4423993465882d976553363766a",
+                        "name": "Control Data - MNTALT",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntalt",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Actual Altitude of Mount",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTALT"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "62d5d6f8612d4627aa5f293b2315e36c",
+                        "name": "Control Data - MNTPIER",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntpier",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Actual Pier of Mount (pierWest = Before Meridian, pierEast = After Meridian)",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTPIER"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "32d48270a7ab4b02af5e5bae9b6a9875",
+                        "name": "Control Data - MNTTFLIP",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mnttflip",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Time to Meridian Cross in HH:mm:SS if negative mean is before",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTTFLIP"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "4cd4d889a51a49a19c0411d9096c131d",
+                        "name": "Control Data - MNTSFLIP",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntsflip",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "UNSIGNED",
+                        "description": "Status of Meridian Flip in Voyager",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTSFLIP"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "1132b2ce07824c329387317161d3d863",
+                        "name": "Control Data - MNTTRACK",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mnttrack",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if the mount is tracking",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTTRACK"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "ff7f867a566e41d981cc7dc0057abc53",
+                        "name": "Control Data - MNTSLEW",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntslew",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if the mount is slewing",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTSLEW"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "b56f72287fb54ffe85510da083f1d5cd",
+                        "name": "Control Data - AFCONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.afconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if Autofocus is connected. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.AFCONN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "8ca6fa58941848ab9fe1cc27e6c67e9d",
+                        "name": "Control Data - AFTEMP",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.aftemp",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Temperature coming from Focuser. Some special value is possible",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.AFTEMP"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "bfa4909976964b9db799c66bebd4015d",
+                        "name": "Control Data - AFPOS",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.afpos",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Position of Focuser in Step. Some special value is possible",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.AFPOS"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "48cd6865aed4430bbed9f2477b1ded36",
+                        "name": "Control Data - SEQTOT",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.seqtot",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "UNSIGNED",
+                        "description": "Total in seconds of all shot in a Sequence running",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.SEQTOT"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "ac33691e9f394c47826f6f6ec84f7c32",
+                        "name": "Control Data - SEQPARZ",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.seqparz",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "UNSIGNED",
+                        "description": "Total in seconds of elapse shot in a Sequence Running",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.SEQPARZ"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "59f9c39c629f4d7db0fbf77d051bae1e",
+                        "name": "Control Data - GUIDECONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.guideconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if guide controls is connected or not. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.GUIDECONN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "aebb77684ea94e809fd31b58399040c0",
+                        "name": "Control Data - GUIDESTAT",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.guidestat",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "UNSIGNED",
+                        "description": "Status of guide inside Voyager",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.GUIDESTAT"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "3dc4510aa3114cc8967d00238101e87a",
+                        "name": "Control Data - DITHSTAT",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.dithstat",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "UNSIGNED",
+                        "description": "Status of Dithering inside Voyager",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.DITHSTAT"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "13d30bb95e994ab8a452afc8a101b1a7",
+                        "name": "Control Data - GUIDEX",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.guidex",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Guide error in pixels in X axis",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.GUIDEX"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "9e4a0f404c8443a2aa58625bae20f205",
+                        "name": "Control Data - GUIDEY",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.guidey",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Guide error in pixels in Y axis",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.GUIDEY"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "e319b52067cb47aa8a6a47e6c57d3d91",
+                        "name": "Control Data - PLACONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.placonn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if planetarium controls is connected or not. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.PLACONN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "a15b491ec637491986c2e1829a212748",
+                        "name": "Control Data - PSCONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.psconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if power supply is connected",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.PSCONN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "6bb39c8aa6234c8690e121f3e8964383",
+                        "name": "Control Data - SEQNAME",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.seqname",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Name of Sequence running",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.SEQNAME"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "a8e7b133867440ca8ac355e7e023e212",
+                        "name": "Control Data - SEQSTART",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.seqstart",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "hh:mm:ss of sequence start",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.SEQSTART"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "87cfa8481965404493fb2ad6a38dd7aa",
+                        "name": "Control Data - SEQREMAIN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.seqremain",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "hh:mm:ss of remaining time to finish sequence",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.SEQREMAIN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "64f5e01aa3474866a43908f15c772d73",
+                        "name": "Control Data - SEQEND",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.seqend",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "hh:mm:ss of sequence end",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.SEQEND"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "e02c22c3b72a41dfb44cc880992a8603",
+                        "name": "Control Data - RUNSEQ",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.runseq",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "FileName of actually running Sequence, empty if no Sequence running",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.RUNSEQ"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "4ff62059fbb04413818e07bdb4c0d4f2",
+                        "name": "Control Data - RUNDS",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.runds",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "FileName of actually running DragScript, empty if no DragScript running",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.RUNDS"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "580c7fe538ef4bcb9d56a5c60f497f79",
+                        "name": "Control Data - ROTCONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.rotconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if rotator control is connected. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.ROTCONN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "b9945e32e5c645bdabdc929f422ba9e5",
+                        "name": "Control Data - ROTPA",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.rotpa",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Position Angle in Degree of the Rotator (-1 or ERROR VALUE mean unknown position)",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.ROTPA"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "877d2ab9a7c04abb9433e6238d7bf014",
+                        "name": "Control Data - ROTSKYPA",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.rotskypa",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Last Position Angle of the camera in the SKY like resolved in solving actions (-1 or ERROR VALUE = unknown position)",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.ROTSKYPA"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "3b4c5918a80b40f3919cc68d7ca21350",
+                        "name": "Control Data - ROTISROT",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.rotisrot",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if the rotator is rotating. True = is rotating",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.ROTISROT"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "da470a5d75804d009bad4e8660a5cffe",
+                        "name": "Control Data - DOMECONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.domeconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if dome control is connected. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.DOMECONN"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "ebb68479cba344ac8446697df4ed3a3e",
+                        "name": "Control Data - DOMESHUTTER",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.domeshutter",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "description": "Indicate the status of Shutter in ASCOM string representation",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.DOMESHUTTER"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "576807f04ceb40f7a6fed770ae8d01a8",
+                        "name": "Control Data - DOMEPA",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.domepa",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "FLOAT",
+                        "description": "Position Angle in Degree of the Dome",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.DOMEPA"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "cef302a5ae5f4f01a106943739cb5517",
+                        "name": "Control Data - DOMEISMOV",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.domeismov",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if the dome is rotating or shutter is moving. True = is rotating/moving",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.DOMEISMOV"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    }
+                ],
+                "tags": [
+                    {
+                        "tag": "class",
+                        "value": "software"
+                    },
+                    {
+                        "tag": "target",
+                        "value": "Voyager"
+                    }
+                ],
+                "macros": [
+                    {
+                        "macro": "{$REST.VAS.DIR}"
+                    },
+                    {
+                        "macro": "{$VOYAGER.AS.HOST}",
+                        "value": "localhost"
+                    },
+                    {
+                        "macro": "{$VOYAGER.AS.PORT}",
+                        "value": "5950"
+                    },
+                    {
+                        "macro": "{$VOYAGER.AS.SERVICE_NAME}"
+                    }
+                ],
+                "valuemaps": [
+                    {
+                        "uuid": "84e184f35ad8412d8f79cc8312055eb4",
+                        "name": "CCDSTAT",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "INIT"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "UNDEF"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "NO COOLER"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "OFF"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "COOLING"
+                            },
+                            {
+                                "value": "5",
+                                "newvalue": "COOLED"
+                            },
+                            {
+                                "value": "6",
+                                "newvalue": "TIMEOUT COOLING"
+                            },
+                            {
+                                "value": "7",
+                                "newvalue": "WARMUP RUNNING"
+                            },
+                            {
+                                "value": "8",
+                                "newvalue": "WARMUP END"
+                            },
+                            {
+                                "value": "9",
+                                "newvalue": "ERROR"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "04d108feebe949949dd45d7fc912351f",
+                        "name": "DITHSTAT",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "STOPPED"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "RUNNING"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "WAITING _SETTLE"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "TIMEOUT_SETTLE"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "77d330b340854f338740ed7858b313a0",
+                        "name": "DOMESHUTTER",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "shutterOpen"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "shutterClosed"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "shutterOpening"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "shutterClosing"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "shutterError"
+                            },
+                            {
+                                "value": "5",
+                                "newvalue": "ERROR"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "3aa4b232e49043f9ae290da3a526ae45",
+                        "name": "GUIDESTAT",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "STOPPED"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "WAITING_SETTLE"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "RUNNING"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "TIMEOUT_SETTLE"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "5724dc83ac674d9791e65aaf7408873b",
+                        "name": "Special Values",
+                        "mappings": [
+                            {
+                                "value": "-123456789",
+                                "newvalue": "OFF VALUE"
+                            },
+                            {
+                                "value": "+123456789",
+                                "newvalue": "ERROR VALUE"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "4fd4e9e973c54ca9b9aa2e78afbe3032",
+                        "name": "UP and DOWN",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "DOWN"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "UP"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "7169e1c85398425b86afe67ea0f00e97",
+                        "name": "VOYSTAT",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "STOPPED"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "IDLE"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "RUN"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "ERRORE"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "UNDEFINED"
+                            },
+                            {
+                                "value": "5",
+                                "newvalue": "WARNING"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
