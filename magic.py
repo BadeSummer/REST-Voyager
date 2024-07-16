@@ -79,7 +79,7 @@ def data_type_maps(ctype):
 for item in control_data_list:
     new_item = {
         "uuid": uuid.uuid4().hex,
-        "name": f"Control Data - {item["Attribute"]}",
+        "name": f"Control Data - {item['Attribute']}",
         "type": "DEPENDENT",
         "key": item["Key"],
         "delay": "0",
@@ -90,7 +90,7 @@ for item in control_data_list:
             {
                 "type": "JSONPATH",
                 "parameters": [
-                    f"$.{item["Attribute"]}"
+                    f"$.{item['Attribute']}"
                 ]
             }
         ],
@@ -104,6 +104,14 @@ for item in control_data_list:
             }
         ]
     }
+    if item["Type"] == "Boolean":
+        new_item["preprocessing"].append({
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
+                                ]
+                            })
+        
     items_list.append(new_item)
 
 # Save the updated template back to the file

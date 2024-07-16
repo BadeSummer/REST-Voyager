@@ -60,7 +60,7 @@
                         ]
                     },
                     {
-                        "uuid": "3a2f8e0fc2864b859090e440bbf42e83",
+                        "uuid": "743b68409d34430aae5eaf341d3ffcaa",
                         "name": "Control Data - TI",
                         "type": "DEPENDENT",
                         "key": "voyager.status.ti",
@@ -87,7 +87,7 @@
                         ]
                     },
                     {
-                        "uuid": "30d9f36567004afe8aff89c7b0082c3d",
+                        "uuid": "857d1abe8e8c441e89431757d02c47be",
                         "name": "Control Data - TIUTC",
                         "type": "DEPENDENT",
                         "key": "voyager.status.tiutc",
@@ -114,7 +114,7 @@
                         ]
                     },
                     {
-                        "uuid": "9b72bd83fc0a470daec78ec38377a64b",
+                        "uuid": "b6cd1d96a77c45f8baa5284394e2e651",
                         "name": "Control Data - VOYSTAT",
                         "type": "DEPENDENT",
                         "key": "voyager.status.voystat",
@@ -141,7 +141,7 @@
                         ]
                     },
                     {
-                        "uuid": "612ab9a4a7d74deda2ced1007e9739aa",
+                        "uuid": "953b464d35c84593ad668e44c7f6daab",
                         "name": "Control Data - SETUPCONN",
                         "type": "DEPENDENT",
                         "key": "voyager.status.setupconn",
@@ -155,32 +155,11 @@
                                 "parameters": [
                                     "$.SETUPCONN"
                                 ]
-                            }
-                        ],
-                        "master_item": {
-                            "key": "restvas.run[GetControlData]"
-                        },
-                        "tags": [
+                            },
                             {
-                                "tag": "description",
-                                "value": "Voyager"
-                            }
-                        ]
-                    },
-                    {
-                        "uuid": "78b7e290d83e483f8bc728696989d949",
-                        "name": "Control Data - CCDCONN",
-                        "type": "DEPENDENT",
-                        "key": "voyager.status.ccdconn",
-                        "delay": "0",
-                        "trends": "0",
-                        "value_type": "BINARY",
-                        "description": "Indicate if camera control is connected or not. True = connected. False if not connected or control is empty",
-                        "preprocessing": [
-                            {
-                                "type": "JSONPATH",
+                                "type": "JAVASCRIPT",
                                 "parameters": [
-                                    "$.CCDCONN"
+                                    "var b64 = btoa(value)\nreturn b64"
                                 ]
                             }
                         ],
@@ -195,7 +174,40 @@
                         ]
                     },
                     {
-                        "uuid": "b8d3a143dc67464bb3438bc00f515ee4",
+                        "uuid": "6dcb41b9f48c441d9955cf186a43c41a",
+                        "name": "Control Data - CCDCONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.ccdconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if camera control is connected or not. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.CCDCONN"
+                                ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "1da5803e403b45c085c673935d46f88b",
                         "name": "Control Data - CCDTEMP",
                         "type": "DEPENDENT",
                         "key": "voyager.status.ccdtemp",
@@ -222,7 +234,7 @@
                         ]
                     },
                     {
-                        "uuid": "6e5f3a88ce0740c583e83b468f261c7a",
+                        "uuid": "fc8d6f21399b4beb840fd35c0266ee4e",
                         "name": "Control Data - CCDPOW",
                         "type": "DEPENDENT",
                         "key": "voyager.status.ccdpow",
@@ -249,7 +261,7 @@
                         ]
                     },
                     {
-                        "uuid": "e0f37c509c484f8c854662c3cca853ea",
+                        "uuid": "8925482aac7a4f82a8c5b2f9a6dec563",
                         "name": "Control Data - CCDSETP",
                         "type": "DEPENDENT",
                         "key": "voyager.status.ccdsetp",
@@ -276,7 +288,7 @@
                         ]
                     },
                     {
-                        "uuid": "fdc443bdab3f48f0b2c0f109218956a6",
+                        "uuid": "d7311e6bfea8448cbdbd314ed7b65c97",
                         "name": "Control Data - CCDCOOL",
                         "type": "DEPENDENT",
                         "key": "voyager.status.ccdcool",
@@ -289,6 +301,12 @@
                                 "type": "JSONPATH",
                                 "parameters": [
                                     "$.CCDCOOL"
+                                ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
                                 ]
                             }
                         ],
@@ -303,7 +321,7 @@
                         ]
                     },
                     {
-                        "uuid": "db4c72347f754729bb7f03edc574c120",
+                        "uuid": "f22d2e2873104a11b8ba58e58cf30211",
                         "name": "Control Data - CCDSTAT",
                         "type": "DEPENDENT",
                         "key": "voyager.status.ccdstat",
@@ -330,7 +348,7 @@
                         ]
                     },
                     {
-                        "uuid": "e36ccfec48fd48e0abea263d5ee3e6b2",
+                        "uuid": "e38f2a0e44624becb4e3a38810f65850",
                         "name": "Control Data - MNTCONN",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntconn",
@@ -344,32 +362,11 @@
                                 "parameters": [
                                     "$.MNTCONN"
                                 ]
-                            }
-                        ],
-                        "master_item": {
-                            "key": "restvas.run[GetControlData]"
-                        },
-                        "tags": [
+                            },
                             {
-                                "tag": "description",
-                                "value": "Voyager"
-                            }
-                        ]
-                    },
-                    {
-                        "uuid": "8e4bfdf5075e432abc232b053379222f",
-                        "name": "Control Data - MNTPARK",
-                        "type": "DEPENDENT",
-                        "key": "voyager.status.mntpark",
-                        "delay": "0",
-                        "trends": "0",
-                        "value_type": "BINARY",
-                        "description": "Indicate if mount is parked. True = connected. False if not connected or control is empty",
-                        "preprocessing": [
-                            {
-                                "type": "JSONPATH",
+                                "type": "JAVASCRIPT",
                                 "parameters": [
-                                    "$.MNTPARK"
+                                    "var b64 = btoa(value)\nreturn b64"
                                 ]
                             }
                         ],
@@ -384,7 +381,40 @@
                         ]
                     },
                     {
-                        "uuid": "4caae697bb8f46cfb29493d4da9f8ced",
+                        "uuid": "28aaa556faa44ccf9fb9c7362c0c1b12",
+                        "name": "Control Data - MNTPARK",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.mntpark",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if mount is parked. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.MNTPARK"
+                                ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "99c5f656c0ca47a29683e1e2b8d4c0f0",
                         "name": "Control Data - MNTRA",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntra",
@@ -411,7 +441,7 @@
                         ]
                     },
                     {
-                        "uuid": "aa6be76132d3419a9866cb7b41d7f9b2",
+                        "uuid": "035aa79ef6294b4da1a2d857d99e81e9",
                         "name": "Control Data - MNTDEC",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntdec",
@@ -438,7 +468,7 @@
                         ]
                     },
                     {
-                        "uuid": "23f701e556864b668d1f464aa7d06b25",
+                        "uuid": "f9e742dd26594ee98656b0beea98ac8f",
                         "name": "Control Data - MNTRAJ2000",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntraj2000",
@@ -465,7 +495,7 @@
                         ]
                     },
                     {
-                        "uuid": "306903a717514f3392e902be3effdef3",
+                        "uuid": "a3d92381a506450b88ea97eee22a25a6",
                         "name": "Control Data - MNTDECJ2000",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntdecj2000",
@@ -492,7 +522,7 @@
                         ]
                     },
                     {
-                        "uuid": "bc3e6bc6728947c9ae89ab367477d48c",
+                        "uuid": "ee61906c8f0d4e839a71a5b406889be4",
                         "name": "Control Data - MNTAZ",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntaz",
@@ -519,7 +549,7 @@
                         ]
                     },
                     {
-                        "uuid": "12ebb4423993465882d976553363766a",
+                        "uuid": "b116dc4199924c3fb934da3843f20bc6",
                         "name": "Control Data - MNTALT",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntalt",
@@ -546,7 +576,7 @@
                         ]
                     },
                     {
-                        "uuid": "62d5d6f8612d4627aa5f293b2315e36c",
+                        "uuid": "7c93673a714d4c70958112a3f9429a71",
                         "name": "Control Data - MNTPIER",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntpier",
@@ -573,7 +603,7 @@
                         ]
                     },
                     {
-                        "uuid": "32d48270a7ab4b02af5e5bae9b6a9875",
+                        "uuid": "8b840462b104425f8fc92abcb08224e5",
                         "name": "Control Data - MNTTFLIP",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mnttflip",
@@ -600,7 +630,7 @@
                         ]
                     },
                     {
-                        "uuid": "4cd4d889a51a49a19c0411d9096c131d",
+                        "uuid": "f9a8fa1656c645bcb728a06d58a888e0",
                         "name": "Control Data - MNTSFLIP",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntsflip",
@@ -627,7 +657,7 @@
                         ]
                     },
                     {
-                        "uuid": "1132b2ce07824c329387317161d3d863",
+                        "uuid": "e937c852e97640ed9c3b95e076af6d57",
                         "name": "Control Data - MNTTRACK",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mnttrack",
@@ -641,6 +671,12 @@
                                 "parameters": [
                                     "$.MNTTRACK"
                                 ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
+                                ]
                             }
                         ],
                         "master_item": {
@@ -654,7 +690,7 @@
                         ]
                     },
                     {
-                        "uuid": "ff7f867a566e41d981cc7dc0057abc53",
+                        "uuid": "04931cf7b71742f7a8d1a2a5b02b3cfe",
                         "name": "Control Data - MNTSLEW",
                         "type": "DEPENDENT",
                         "key": "voyager.status.mntslew",
@@ -668,32 +704,11 @@
                                 "parameters": [
                                     "$.MNTSLEW"
                                 ]
-                            }
-                        ],
-                        "master_item": {
-                            "key": "restvas.run[GetControlData]"
-                        },
-                        "tags": [
+                            },
                             {
-                                "tag": "description",
-                                "value": "Voyager"
-                            }
-                        ]
-                    },
-                    {
-                        "uuid": "b56f72287fb54ffe85510da083f1d5cd",
-                        "name": "Control Data - AFCONN",
-                        "type": "DEPENDENT",
-                        "key": "voyager.status.afconn",
-                        "delay": "0",
-                        "trends": "0",
-                        "value_type": "BINARY",
-                        "description": "Indicate if Autofocus is connected. True = connected. False if not connected or control is empty",
-                        "preprocessing": [
-                            {
-                                "type": "JSONPATH",
+                                "type": "JAVASCRIPT",
                                 "parameters": [
-                                    "$.AFCONN"
+                                    "var b64 = btoa(value)\nreturn b64"
                                 ]
                             }
                         ],
@@ -708,7 +723,40 @@
                         ]
                     },
                     {
-                        "uuid": "8ca6fa58941848ab9fe1cc27e6c67e9d",
+                        "uuid": "df0ed95ef5294b72b2eb33727dfc2a2f",
+                        "name": "Control Data - AFCONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.afconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if Autofocus is connected. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.AFCONN"
+                                ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "2cdbbfdfa27447859926902ca61efdb9",
                         "name": "Control Data - AFTEMP",
                         "type": "DEPENDENT",
                         "key": "voyager.status.aftemp",
@@ -735,7 +783,7 @@
                         ]
                     },
                     {
-                        "uuid": "bfa4909976964b9db799c66bebd4015d",
+                        "uuid": "d79efddd0d4c4f1388d025ea108ea2b9",
                         "name": "Control Data - AFPOS",
                         "type": "DEPENDENT",
                         "key": "voyager.status.afpos",
@@ -762,7 +810,7 @@
                         ]
                     },
                     {
-                        "uuid": "48cd6865aed4430bbed9f2477b1ded36",
+                        "uuid": "d4dfedb20901429bb28ad10778b4bc23",
                         "name": "Control Data - SEQTOT",
                         "type": "DEPENDENT",
                         "key": "voyager.status.seqtot",
@@ -789,7 +837,7 @@
                         ]
                     },
                     {
-                        "uuid": "ac33691e9f394c47826f6f6ec84f7c32",
+                        "uuid": "0b808a02ca374e69b727a2c933d8d2e0",
                         "name": "Control Data - SEQPARZ",
                         "type": "DEPENDENT",
                         "key": "voyager.status.seqparz",
@@ -816,7 +864,7 @@
                         ]
                     },
                     {
-                        "uuid": "59f9c39c629f4d7db0fbf77d051bae1e",
+                        "uuid": "3312ebfeffe641cab16c90b4f1b71587",
                         "name": "Control Data - GUIDECONN",
                         "type": "DEPENDENT",
                         "key": "voyager.status.guideconn",
@@ -829,6 +877,12 @@
                                 "type": "JSONPATH",
                                 "parameters": [
                                     "$.GUIDECONN"
+                                ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
                                 ]
                             }
                         ],
@@ -843,7 +897,7 @@
                         ]
                     },
                     {
-                        "uuid": "aebb77684ea94e809fd31b58399040c0",
+                        "uuid": "81165a9d04d34f54a2160089ea016647",
                         "name": "Control Data - GUIDESTAT",
                         "type": "DEPENDENT",
                         "key": "voyager.status.guidestat",
@@ -870,7 +924,7 @@
                         ]
                     },
                     {
-                        "uuid": "3dc4510aa3114cc8967d00238101e87a",
+                        "uuid": "2aebdb4b9762459fbc488803eb3604a9",
                         "name": "Control Data - DITHSTAT",
                         "type": "DEPENDENT",
                         "key": "voyager.status.dithstat",
@@ -897,7 +951,7 @@
                         ]
                     },
                     {
-                        "uuid": "13d30bb95e994ab8a452afc8a101b1a7",
+                        "uuid": "b7e8971e11f34067a120420f5e87bf83",
                         "name": "Control Data - GUIDEX",
                         "type": "DEPENDENT",
                         "key": "voyager.status.guidex",
@@ -924,7 +978,7 @@
                         ]
                     },
                     {
-                        "uuid": "9e4a0f404c8443a2aa58625bae20f205",
+                        "uuid": "ac76edc5705e4c1fac5edda987a6875b",
                         "name": "Control Data - GUIDEY",
                         "type": "DEPENDENT",
                         "key": "voyager.status.guidey",
@@ -951,7 +1005,7 @@
                         ]
                     },
                     {
-                        "uuid": "e319b52067cb47aa8a6a47e6c57d3d91",
+                        "uuid": "a731d8eb1b00453a92d21078427779e6",
                         "name": "Control Data - PLACONN",
                         "type": "DEPENDENT",
                         "key": "voyager.status.placonn",
@@ -965,32 +1019,11 @@
                                 "parameters": [
                                     "$.PLACONN"
                                 ]
-                            }
-                        ],
-                        "master_item": {
-                            "key": "restvas.run[GetControlData]"
-                        },
-                        "tags": [
+                            },
                             {
-                                "tag": "description",
-                                "value": "Voyager"
-                            }
-                        ]
-                    },
-                    {
-                        "uuid": "a15b491ec637491986c2e1829a212748",
-                        "name": "Control Data - PSCONN",
-                        "type": "DEPENDENT",
-                        "key": "voyager.status.psconn",
-                        "delay": "0",
-                        "trends": "0",
-                        "value_type": "BINARY",
-                        "description": "Indicate if power supply is connected",
-                        "preprocessing": [
-                            {
-                                "type": "JSONPATH",
+                                "type": "JAVASCRIPT",
                                 "parameters": [
-                                    "$.PSCONN"
+                                    "var b64 = btoa(value)\nreturn b64"
                                 ]
                             }
                         ],
@@ -1005,7 +1038,40 @@
                         ]
                     },
                     {
-                        "uuid": "6bb39c8aa6234c8690e121f3e8964383",
+                        "uuid": "fe71b9518d8c439aaf41572b981351ed",
+                        "name": "Control Data - PSCONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.psconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if power supply is connected",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.PSCONN"
+                                ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "007f4e442b8f441ea87f15887e1a3ccf",
                         "name": "Control Data - SEQNAME",
                         "type": "DEPENDENT",
                         "key": "voyager.status.seqname",
@@ -1032,7 +1098,7 @@
                         ]
                     },
                     {
-                        "uuid": "a8e7b133867440ca8ac355e7e023e212",
+                        "uuid": "66a5f5382ab54b7880b6f874343300f5",
                         "name": "Control Data - SEQSTART",
                         "type": "DEPENDENT",
                         "key": "voyager.status.seqstart",
@@ -1059,7 +1125,7 @@
                         ]
                     },
                     {
-                        "uuid": "87cfa8481965404493fb2ad6a38dd7aa",
+                        "uuid": "c630ace2ee104b4c9c5cfe0d572c5b91",
                         "name": "Control Data - SEQREMAIN",
                         "type": "DEPENDENT",
                         "key": "voyager.status.seqremain",
@@ -1086,7 +1152,7 @@
                         ]
                     },
                     {
-                        "uuid": "64f5e01aa3474866a43908f15c772d73",
+                        "uuid": "cb980d393c9445c9aefb06e69903088e",
                         "name": "Control Data - SEQEND",
                         "type": "DEPENDENT",
                         "key": "voyager.status.seqend",
@@ -1113,7 +1179,7 @@
                         ]
                     },
                     {
-                        "uuid": "e02c22c3b72a41dfb44cc880992a8603",
+                        "uuid": "9411cf4e49824d31893a0fa73f1aafdd",
                         "name": "Control Data - RUNSEQ",
                         "type": "DEPENDENT",
                         "key": "voyager.status.runseq",
@@ -1140,7 +1206,7 @@
                         ]
                     },
                     {
-                        "uuid": "4ff62059fbb04413818e07bdb4c0d4f2",
+                        "uuid": "6d959a0c78a64758af86890bc2be9bd9",
                         "name": "Control Data - RUNDS",
                         "type": "DEPENDENT",
                         "key": "voyager.status.runds",
@@ -1167,7 +1233,7 @@
                         ]
                     },
                     {
-                        "uuid": "580c7fe538ef4bcb9d56a5c60f497f79",
+                        "uuid": "436d8a6aa51d4cebbf8301c5e3ddb3c4",
                         "name": "Control Data - ROTCONN",
                         "type": "DEPENDENT",
                         "key": "voyager.status.rotconn",
@@ -1180,6 +1246,12 @@
                                 "type": "JSONPATH",
                                 "parameters": [
                                     "$.ROTCONN"
+                                ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
                                 ]
                             }
                         ],
@@ -1194,7 +1266,7 @@
                         ]
                     },
                     {
-                        "uuid": "b9945e32e5c645bdabdc929f422ba9e5",
+                        "uuid": "538ea69966d14d67b3368ef75704f28a",
                         "name": "Control Data - ROTPA",
                         "type": "DEPENDENT",
                         "key": "voyager.status.rotpa",
@@ -1221,7 +1293,7 @@
                         ]
                     },
                     {
-                        "uuid": "877d2ab9a7c04abb9433e6238d7bf014",
+                        "uuid": "9a179084523841c9a9c39578ae46b9ca",
                         "name": "Control Data - ROTSKYPA",
                         "type": "DEPENDENT",
                         "key": "voyager.status.rotskypa",
@@ -1248,7 +1320,7 @@
                         ]
                     },
                     {
-                        "uuid": "3b4c5918a80b40f3919cc68d7ca21350",
+                        "uuid": "050beaa1bf8043879929caf05d3494b4",
                         "name": "Control Data - ROTISROT",
                         "type": "DEPENDENT",
                         "key": "voyager.status.rotisrot",
@@ -1262,32 +1334,11 @@
                                 "parameters": [
                                     "$.ROTISROT"
                                 ]
-                            }
-                        ],
-                        "master_item": {
-                            "key": "restvas.run[GetControlData]"
-                        },
-                        "tags": [
+                            },
                             {
-                                "tag": "description",
-                                "value": "Voyager"
-                            }
-                        ]
-                    },
-                    {
-                        "uuid": "da470a5d75804d009bad4e8660a5cffe",
-                        "name": "Control Data - DOMECONN",
-                        "type": "DEPENDENT",
-                        "key": "voyager.status.domeconn",
-                        "delay": "0",
-                        "trends": "0",
-                        "value_type": "BINARY",
-                        "description": "Indicate if dome control is connected. True = connected. False if not connected or control is empty",
-                        "preprocessing": [
-                            {
-                                "type": "JSONPATH",
+                                "type": "JAVASCRIPT",
                                 "parameters": [
-                                    "$.DOMECONN"
+                                    "var b64 = btoa(value)\nreturn b64"
                                 ]
                             }
                         ],
@@ -1302,7 +1353,40 @@
                         ]
                     },
                     {
-                        "uuid": "ebb68479cba344ac8446697df4ed3a3e",
+                        "uuid": "c3c724f5b8f14f7e8294335d0763ba03",
+                        "name": "Control Data - DOMECONN",
+                        "type": "DEPENDENT",
+                        "key": "voyager.status.domeconn",
+                        "delay": "0",
+                        "trends": "0",
+                        "value_type": "BINARY",
+                        "description": "Indicate if dome control is connected. True = connected. False if not connected or control is empty",
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.DOMECONN"
+                                ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "restvas.run[GetControlData]"
+                        },
+                        "tags": [
+                            {
+                                "tag": "description",
+                                "value": "Voyager"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "d9dc5c3055374a72955eb87102e2737f",
                         "name": "Control Data - DOMESHUTTER",
                         "type": "DEPENDENT",
                         "key": "voyager.status.domeshutter",
@@ -1329,7 +1413,7 @@
                         ]
                     },
                     {
-                        "uuid": "576807f04ceb40f7a6fed770ae8d01a8",
+                        "uuid": "ae0bb377c66e407a98004a3c213227d8",
                         "name": "Control Data - DOMEPA",
                         "type": "DEPENDENT",
                         "key": "voyager.status.domepa",
@@ -1356,7 +1440,7 @@
                         ]
                     },
                     {
-                        "uuid": "cef302a5ae5f4f01a106943739cb5517",
+                        "uuid": "d20d6f46244041e4a1250bb7917e3209",
                         "name": "Control Data - DOMEISMOV",
                         "type": "DEPENDENT",
                         "key": "voyager.status.domeismov",
@@ -1369,6 +1453,12 @@
                                 "type": "JSONPATH",
                                 "parameters": [
                                     "$.DOMEISMOV"
+                                ]
+                            },
+                            {
+                                "type": "JAVASCRIPT",
+                                "parameters": [
+                                    "var b64 = btoa(value)\nreturn b64"
                                 ]
                             }
                         ],
